@@ -5,10 +5,10 @@ import styled from 'styled-components';
 
 const Home = styled.div`
   text-align: center;
-  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-`
+  max-width: 1200px;
+`;
 const Header = styled.div`
   padding: 100px 100px 10px 100px;
 
@@ -22,18 +22,25 @@ const Subheader = styled.div`
   font-size: 26px;
 `
 
-const grid = styled.div``
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  width: 100%;
+  padding: 20px;
+  > div {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+  }
+`;
 
 const Airlines = () => {
   const [airlines, setAirlines] = useState([])
 
   useEffect(() => {
-    //Get all of our airlines
-    //update airlines in our state
     axios.get('/api/v1/airlines.json')
-    .then(response => {
-      setAirlines(response.data.data)
-    })
+    .then(response => setAirlines(response.data.data))
     .catch(error => console.error(error))
   }, [airlines.length])
 
@@ -44,6 +51,7 @@ const Airlines = () => {
       attributes={item.attributes}
     />)
   })
+
   return (
     <Home>
       <Header>
@@ -52,9 +60,9 @@ const Airlines = () => {
           Want reviews? We got 'em!
         </Subheader>
       </Header>
-      <div className='grid'>
-        <ul>{grid}</ul>
-      </div>
+      <Grid>
+        {grid}
+      </Grid>
     </Home>
   );
 }
